@@ -1,0 +1,193 @@
+package Calculator2;
+
+import java.util.Scanner;
+
+public class ScientificCalculator implements Calculator {
+    private Scanner scanner;
+
+    public ScientificCalculator() {
+        this.scanner = new Scanner(System.in);
+    }
+
+    @Override
+    public void chooseStandardMode() {
+        System.out.println("Switching to Standard Calculator Mode...");
+    }
+
+    @Override
+    public void chooseScientificMode() {
+        System.out.println("Scientific Calculator Mode");
+    }
+
+    @Override
+    public void add(double num1, double num2) {
+        System.out.println("Result: " + (num1 + num2));
+    }
+
+    @Override
+    public void subtract(double num1, double num2) {
+        System.out.println("Result: " + (num1 - num2));
+    }
+
+    @Override
+    public void multiply(double num1, double num2) {
+        System.out.println("Result: " + (num1 * num2));
+    }
+
+    @Override
+    public void divide(double num1, double num2) {
+        if (num2 != 0) {
+            System.out.println("Result: " + (num1 / num2));
+        } else {
+            System.out.println("Cannot divide by zero!");
+        }
+    }
+
+    @Override
+    public void power(double base, double exponent) {
+        System.out.println("Result: " + Math.pow(base, exponent));
+    }
+
+    @Override
+    public void squareRoot(double num) {
+        if (num >= 0) {
+            System.out.println("Result: " + Math.sqrt(num));
+        } else {
+            System.out.println("Invalid input for square root!");
+        }
+    }
+
+    
+    public void sin(double angle) {
+        System.out.println("Result: " + Math.sin(angle));
+    }
+
+    public void cos(double angle) {
+        System.out.println("Result: " + Math.cos(angle));
+    }
+
+    public void tan(double angle) {
+        System.out.println("Result: " + Math.tan(angle));
+    }
+
+    @Override
+    public void clear() {
+        // Clear any resources or states if needed
+        System.out.println("Calculator cleared.");
+    }
+
+    public void startCalculator() {
+        boolean exit = false;
+        while (!exit) {
+            displayMenu();
+            int choice = scanner.nextInt();
+            switch (choice) {
+                case 1:
+                    chooseStandardMode();
+                    performStandardOperations();
+                    break;
+                case 2:
+                    chooseScientificMode();
+                    performScientificOperations();
+                    break;
+                case 3:
+                    exit = true;
+                    clear();
+                    System.out.println("Exiting Calculator.");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please enter again.");
+            }
+        }
+    }
+
+    private void displayMenu() {
+        System.out.println("\n------ Calculator Menu ------");
+        System.out.println("1. Standard Calculator");
+        System.out.println("2. Scientific Calculator");
+        System.out.println("3. Exit");
+        System.out.print("Enter your choice: ");
+    }
+
+    private void performStandardOperations() {
+        double num1, num2;
+        System.out.print("Enter first number: ");
+        num1 = scanner.nextDouble();
+        System.out.print("Enter second number: ");
+        num2 = scanner.nextDouble();
+
+        System.out.println("Select operation:");
+        System.out.println("1. Add");
+        System.out.println("2. Subtract");
+        System.out.println("3. Multiply");
+        System.out.println("4. Divide");
+        System.out.print("Enter operation choice: ");
+        int operation = scanner.nextInt();
+
+        switch (operation) {
+            case 1:
+                add(num1, num2);
+                break;
+            case 2:
+                subtract(num1, num2);
+                break;
+            case 3:
+                multiply(num1, num2);
+                break;
+            case 4:
+                divide(num1, num2);
+                break;
+            default:
+                System.out.println("Invalid operation choice.");
+        }
+    }
+
+    private void performScientificOperations() {
+        System.out.println("Scientific operations:");
+        System.out.println("1. Power");
+        System.out.println("2. Square Root");
+        System.out.println("3. Sin");
+        System.out.println("4. Cos");
+        System.out.println("5. Tan");
+        System.out.print("Enter scientific operation choice: ");
+        int operation = scanner.nextInt();
+
+        switch (operation) {
+            case 1:
+                System.out.print("Enter base: ");
+                double base = scanner.nextDouble();
+                System.out.print("Enter exponent: ");
+                double exponent = scanner.nextDouble();
+                power(base, exponent);
+                break;
+            case 2:
+                System.out.print("Enter number for square root: ");
+                double num = scanner.nextDouble();
+                squareRoot(num);
+                break;
+            case 3:
+                System.out.print("Enter angle in radians for sin: ");
+                double angleSin = scanner.nextDouble();
+                sin(angleSin);
+                break;
+            case 4:
+                System.out.print("Enter angle in radians for cos: ");
+                double angleCos = scanner.nextDouble();
+                cos(angleCos);
+                break;
+            case 5:
+                System.out.print("Enter angle in radians for tan: ");
+                double angleTan = scanner.nextDouble();
+                tan(angleTan);
+                break;
+            default:
+                System.out.println("Invalid operation choice.");
+        }
+    }
+
+    public static void main(String[] args) {
+        ScientificCalculator calculator = new ScientificCalculator();
+        calculator.startCalculator();
+    }
+}
+
